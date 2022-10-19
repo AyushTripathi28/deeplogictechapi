@@ -8,11 +8,14 @@ import 'package:shelf_hotreload/shelf_hotreload.dart';
 
 void main(List<String> arguments) async {
   // Create server
-  const port = 8080;
-  final ip = "localhost"; //InternetAddress.anyIPv4;
+  final port = int.parse(Platform.environment['PORT'] ?? '8080');
+  final ip = InternetAddress.anyIPv4;
 
-  final app = Router();
+  Response _rootHandler(Request req) {
+    return Response.ok('Deep LogicTech Get API Assignment@ /getTimeStories\n');
+  }
 
+  final app = Router()..get('/', _rootHandler);
   // Create routes
   app.mount('/getTimeStories/', DeepLogitechApi().router);
 
